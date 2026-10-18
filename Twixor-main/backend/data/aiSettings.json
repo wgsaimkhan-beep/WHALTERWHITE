@@ -1,9 +1,0 @@
-{
-  "activeProvider": "groq",
-  "activeModel": "allam-2-7b",
-  "lastUpdated": "2026-10-12T23:11:00.000Z",
-  "updatedBy": "Admin Control Center",
-  "apiKeys": {
-    "gemini": ""
-  }
-}
