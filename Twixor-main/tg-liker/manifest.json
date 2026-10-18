@@ -1,0 +1,61 @@
+{
+  "manifest_version": 3,
+  "name": "TG LIKER",
+  "version": "1.7.1",
+  "description": "Human-like Like / Repost / Bookmark for X in a side panel: smooth scroll, mouse cursor, breaks, Pause/Resume. No account, no server.",
+  "permissions": [
+    "storage",
+    "sidePanel",
+    "debugger",
+    "downloads",
+    "scripting",
+    "tabCapture",
+    "activeTab"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "pageguard.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "TG LIKER",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*"
+  ],
+  "side_panel": {
+    "default_path": "panel.html"
+  }
+}

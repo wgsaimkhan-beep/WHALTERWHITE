@@ -1,0 +1,21 @@
+{
+  "id": "launch_founding_100",
+  "name": "FOUNDING 100",
+  "badge": "FIRST LAUNCH OFFER",
+  "originalPrice": 5,
+  "launchPrice": 2,
+  "credits": 5000,
+  "limitUsers": 100,
+  "claimedUsers": 14,
+  "isActive": true,
+  "expiresAt": "2026-10-12T16:15:33.389Z",
+  "createdAt": "2026-10-09T16:15:33.389Z",
+  "features": [
+    "5,000 AI replies",
+    "All automation agents",
+    "Human-like pacing",
+    "Priority processing",
+    "Early feature access",
+    "Dedicated support"
+  ]
+}
