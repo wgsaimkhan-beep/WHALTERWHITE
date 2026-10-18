@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TG LIKER</title>
+<style>
+  :root { --bg:#0b1220; --card:#111a2e; --line:#1f2b45; --text:#e5e9f2; --mut:#8793ad; --acc:#3b82f6; --red:#f43f5e; --grn:#10b981; --amb:#f59e0b; }
+  * { box-sizing: border-box; }
+  body { margin:0; width:100%; min-width:290px; background:var(--bg); color:var(--text); font:13px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:1px solid var(--line); }
+  .brand { display:flex; align-items:center; gap:8px; font-weight:800; letter-spacing:.4px; }
+  .brand .dot { width:22px; height:22px; border-radius:7px; background:var(--red); display:grid; place-items:center; font-size:12px; }
+  .pill { font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; background:#1b2742; color:var(--mut); }
+  .pill.run { background:#0f3b2c; color:var(--grn); } .pill.pause { background:#3d2e0a; color:var(--amb); }
+  .pill.brk { background:#2a2150; color:#a78bfa; } .pill.err { background:#4a1220; color:var(--red); }
+  main { padding:12px 14px 14px; display:flex; flex-direction:column; gap:12px; }
+  label.t { display:block; font-size:11px; font-weight:700; color:var(--mut); text-transform:uppercase; letter-spacing:.5px; margin-bottom:5px; }
+  textarea, select, input[type=number], input[type=text] { width:100%; background:var(--card); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:8px 10px; font:inherit; outline:none; }
+  textarea { min-height:58px; resize:vertical; }
+  textarea:focus, select:focus, input:focus { border-color:var(--acc); }
+  .row { display:flex; gap:8px; align-items:center; }
+  .row > * { flex:1; }
+  .chips { display:flex; gap:8px; }
+  .chip { flex:1; position:relative; }
+  .chip input { position:absolute; opacity:0; inset:0; cursor:pointer; }
+  .chip span { display:block; text-align:center; padding:8px 4px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--mut); font-weight:600; }
+  .chip input:checked + span { border-color:var(--acc); color:var(--text); background:#14264a; }
+  .box { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px; }
+  .box h4 { margin:0 0 8px; font-size:12px; display:flex; align-items:center; justify-content:space-between; }
+  .mini { display:flex; align-items:center; gap:6px; color:var(--mut); font-size:12px; margin-top:6px; flex-wrap:wrap; }
+  .mini input[type=text] { flex:1; min-width:0; padding:5px 8px; }
+  .mini input[type=number] { width:62px; padding:5px 6px; text-align:center; }
+  .sw { display:inline-flex; align-items:center; gap:6px; cursor:pointer; color:var(--mut); font-size:12px; }
+  .btns { display:flex; gap:8px; }
+  button { flex:1; border:0; border-radius:9px; padding:11px; font:inherit; font-weight:700; cursor:pointer; color:#fff; }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  .go { background:var(--acc); } .pa { background:#b45309; } .re { background:var(--grn); } .st { background:#7f1d1d; }
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+  .stat { background:var(--card); border:1px solid var(--line); border-radius:9px; padding:7px 4px; text-align:center; }
+  .stat b { display:block; font-size:17px; } .stat i { font-style:normal; font-size:10px; color:var(--mut); }
+  #statusLine { background:var(--card); border:1px solid var(--line); border-radius:9px; padding:9px 10px; color:var(--mut); min-height:38px; }
+  small.note { color:var(--mut); font-size:11px; }
+  /* ---- BREAK / WAIT TIMER BANNER ---- */
+  .wait { position:sticky; top:0; z-index:5; border-radius:12px; padding:12px 12px 10px; text-align:center; border:2px solid #6d4fd6;
+          background:linear-gradient(180deg,#241a52,#171235); box-shadow:0 6px 18px rgba(0,0,0,.45); }
+  .wait .wl { font-size:12px; font-weight:800; letter-spacing:1.2px; color:#c4b5fd; }
+  .wait .wt { font-size:46px; line-height:1.05; font-weight:900; font-variant-numeric:tabular-nums; letter-spacing:1px; margin:4px 0 6px; color:#fff; }
+  .wait .bar { height:7px; background:#0c0a1f; border-radius:99px; overflow:hidden; }
+  .wait .bar i { display:block; height:100%; width:0; background:#a78bfa; transition:width .9s linear; }
+  .wait .wn { margin-top:7px; font-size:11px; color:#b9b4d8; }
+  .wait.long { border-color:#f59e0b; background:linear-gradient(180deg,#3a2606,#231605); }
+  .wait.long .wl { color:#fbbf24; } .wait.long .bar i { background:#f59e0b; }
+  .wait.long .wt { font-size:54px; }
+  .wait.hourly { border-color:#3b82f6; background:linear-gradient(180deg,#10264d,#0b1830); }
+  .wait.hourly .wl { color:#93c5fd; } .wait.hourly .bar i { background:#3b82f6; }
+  .wait.paused { filter:saturate(.45); }
+  /* ---- CONTINUE (add-on) ---- */
+  .pre { flex:1; padding:8px 0; border-radius:8px; background:var(--card); border:1px solid var(--line); color:var(--text); font-weight:700; }
+  .pre.on { border-color:var(--acc); background:#14264a; }
+  .nextinfo { font-size:11.5px; color:var(--mut); text-align:center; }
+  .rs { background:#334155; }
+  .warn { background:#3d2e0a; border:1px solid #7c5a10; color:#fcd34d; border-radius:9px; padding:8px 10px; font-size:12px; }
+  .lastline { font-size:12px; color:var(--mut); text-align:center; }
+  .lastline b.ok { color:var(--grn); } .lastline b.fail { color:var(--red); } .lastline b.skip { color:var(--amb); }
+  .hide { display:none !important; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="dot">♥</div> TG LIKER</div>
+  <div style="display:flex;gap:6px;align-items:center"><span id="clock" class="pill hide">⏱ 00:00</span><span id="pill" class="pill">Idle</span></div>
+</header>
+
+<main>
+  <div id="waitBanner" class="wait hide">
+    <div class="wl" id="waitLabel">☕ BREAK</div>
+    <div class="wt" id="waitTime">00:00</div>
+    <div class="bar"><i id="waitBar"></i></div>
+    <div class="wn" id="waitNote">Timer shesh hole nijei abar shuru hobe</div>
+  </div>
+
+  <div>
+    <label class="t" for="links">Profile link / @username / tweet link</label>
+    <textarea id="links" placeholder="https://x.com/username&#10;(khali rakhle current X tab er link nibe)"></textarea>
+    <div class="row" style="margin-top:6px">
+      <select id="section">
+        <option value="auto" selected>Auto — Profile ➔ /reposts page, Tweet ➔ Quotes</option>
+        <option value="profile_reposts">Profile: /reposts page</option>
+        <option value="profile_all">Profile: main timeline</option>
+        <option value="quotes">Tweet: Quotes</option>
+        <option value="replies">Tweet: Replies</option>
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <label class="t">Actions</label>
+    <div class="chips">
+      <label class="chip"><input type="checkbox" id="aLike" checked><span>❤️ Like</span></label>
+      <label class="chip"><input type="checkbox" id="aRepost"><span>🔁 Repost</span></label>
+      <label class="chip"><input type="checkbox" id="aBookmark"><span>🔖 Bookmark</span></label>
+    </div>
+  </div>
+
+  <div>
+    <label class="t" for="speed">Speed (per post)</label>
+    <select id="speed">
+      <option value="0">⚡ Turbo — instant jump, no cursor</option>
+      <option value="1500">🖱️ Human Fast — 1.5s</option>
+      <option value="2000" selected>🖱️ Human — 2s</option>
+      <option value="2500">🖱️ Human — 2.5s</option>
+      <option value="3500">🖱️ Balanced — 3.5s</option>
+      <option value="6000">🖱️ Slow &amp; Natural — 6s</option>
+    </select>
+    <div class="mini" style="margin-top:9px">🎯 Max posts <input type="number" id="maxPosts" min="0" value="0"> <small class="note">(0 = unlimited. Like + skip mile eto post hole nijei stop)</small></div>
+    <div class="mini" style="margin-top:9px">📍 Stop at post <input type="text" id="stopText" placeholder="@username + post er lekha, ba tweet link"> <button id="btnPickStop" style="flex:0 0 auto;padding:6px 10px;background:#0e7490;font-size:12px">Pick</button></div>
+    <input type="hidden" id="stopPick" value="">
+    <div class="note" id="stopInfo">Pick chap -> X page e oi post e click koro. Ba nijei likho: <b>@username lekhar kichu ongsho</b>. Oi post porjonto giye (post shoho) auto stop hobe. Khali = stop point nai.</div>
+    <label class="sw" style="margin-top:7px"><input type="checkbox" id="loop" checked> Continuous — list shesh hole refresh kore notun post dhoro</label>
+  </div>
+
+  <div class="box">
+    <h4>☕ Break system
+      <label class="sw"><input type="checkbox" id="brkOn" checked> On</label>
+    </h4>
+    <div class="mini">Every <input type="number" id="evMin" min="1" value="25"> – <input type="number" id="evMax" min="1" value="40"> posts</div>
+    <div class="mini">take a break of <input type="number" id="bsMin" min="1" value="45"> – <input type="number" id="bsMax" min="1" value="120"> sec</div>
+    <div class="mini" style="margin-top:9px"><label class="sw"><input type="checkbox" id="lbOn" checked> <b>🛑 Long break</b></label></div>
+    <div class="mini">Every <input type="number" id="lbEvMin" min="1" value="100"> – <input type="number" id="lbEvMax" min="1" value="150"> posts</div>
+    <div class="mini">take <input type="number" id="lbMinMin" min="1" value="5"> – <input type="number" id="lbMinMax" min="1" value="10"> minutes break</div>
+    <div class="mini" style="margin-top:9px">☕ Manual: <input type="number" id="bnMin" min="1" value="2"> min <button id="btnBreakNow" style="flex:0 0 auto;padding:6px 10px;background:#5b21b6;font-size:12px" disabled>Break now</button></div>
+    <div class="mini" style="margin-top:9px">⏳ Hourly limit <input type="number" id="hourly" min="0" value="0"> posts/hr <small class="note">(0 = off)</small></div>
+  </div>
+
+  <div class="btns">
+    <button class="go" id="btnStart">▶ Start</button>
+    <button class="rs" id="btnReset" style="flex:0 0 38%">🔄 Reset</button>
+    <button class="pa hide" id="btnPause">⏸ Pause</button>
+    <button class="re hide" id="btnResume">▶ Resume</button>
+    <button class="st hide" id="btnStop">⏹ Stop</button>
+  </div>
+
+  <div id="nextInfo" class="nextinfo hide"></div>
+
+  <div class="box hide" id="contBox">
+    <h4>➕ Add more posts <small class="note" id="contInfo"></small></h4>
+    <div class="row" id="presets">
+      <button class="pre" data-n="10">+10</button>
+      <button class="pre" data-n="20">+20</button>
+      <button class="pre" data-n="30">+30</button>
+      <button class="pre" data-n="50">+50</button>
+      <button class="pre" data-n="100">+100</button>
+    </div>
+    <div class="mini">Custom: <input type="number" id="contN" min="1" value="20"> more posts <small class="note" id="contNew"></small></div>
+    <div class="btns" style="margin-top:9px"><button class="go" id="btnContinue">▶ Continue from where it ended</button></div>
+    <small class="note">Ager same action (like/repost/bookmark), same break system. Ja ager e handle hoyeche seta skip kore ager jaygay giye notun post theke shuru hobe.</small>
+  </div>
+
+  <div id="noteLine" class="warn hide"></div>
+  <div id="lastLine" class="lastline hide"></div>
+
+  <div class="stats">
+    <div class="stat"><b id="sLiked">0</b><i>Liked</i></div>
+    <div class="stat"><b id="sReposted">0</b><i>Reposted</i></div>
+    <div class="stat"><b id="sBook">0</b><i>Bookmarked</i></div>
+    <div class="stat"><b id="sSkip">0</b><i>Skipped</i></div>
+  </div>
+
+  <div class="box" id="recBox">
+    <h4>🎥 Scroll Recorder <small class="note">(like job er theke alada)</small></h4>
+    <div class="mini" style="margin-top:0">X tab e jekhane achho sekhan theke record shuru hoye smooth uporer dike scroll korbe. Profile top e pouchhale nijei record bondho hoye save hobe.</div>
+    <div class="mini">Capture source
+      <select id="recSource" style="flex:1">
+        <option value="auto" selected>Auto — current X tab (picker lage na)</option>
+        <option value="ask">Ask — Chrome picker (tab/window/screen choose)</option>
+      </select>
+    </div>
+    <div class="mini">Scroll pace
+      <select id="recPace" style="flex:1">
+        <option value="slow">Slow (~0.5 screen/s)</option>
+        <option value="normal" selected>Normal (~1 screen/s, ref video moto)</option>
+        <option value="fast">Fast (~1.6 screen/s)</option>
+        <option value="faster">Faster (~3 screen/s)</option>
+        <option value="turbo">Turbo (~5 screen/s)</option>
+        <option value="insane">Insane (~9 screen/s)</option>
+      </select>
+    </div>
+    <div class="mini">Save folder
+      <input type="text" id="recFolder" value="TG-LIKER" placeholder="TG-LIKER" style="flex:1;min-width:0" spellcheck="false">
+    </div>
+    <div class="note" style="margin-top:3px">Downloads er vitore ei folder e auto save hobe (kono dialog ashbe na). Naam: username + shomoy.</div>
+    <div class="btns" style="margin-top:9px">
+      <button class="go" id="btnRecStart" style="background:#be123c">⏺ Record + Scroll Up</button>
+      <button class="st hide" id="btnRecStop">⏹ Stop &amp; Save</button>
+    </div>
+    <div id="recStatus" class="lastline" style="margin-top:8px">Chap dile current X tab nijei record hobe. Na hole picker ashbe — X tab select koro.</div>
+  </div>
+
+  <div id="statusLine">Ready.</div>
+  <small class="note">Stop ba Pause dile tab ta oi jaygay thake. Panel bondho korleo raid cholte thake.</small>
+</main>
+<script src="panel.js"></script>
+</body>
+</html>

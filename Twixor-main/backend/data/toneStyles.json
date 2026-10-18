@@ -1,0 +1,62 @@
+{
+  "maxCustomTemplatesPerUser": 2,
+  "defaultTones": [
+    {
+      "id": "bullish-short",
+      "name": "Bullish (5-10 words)",
+      "minPlanTier": "free",
+      "description": "Naturally bullish, genuine comment on the real positive development in the post (50 to 80 characters, lowercase a to z only)",
+      "prompt": "Read the entire post carefully and write one naturally bullish comment that reflects the real potential or positive development discussed in the post\n\nKeep the comment between 50 and 80 characters including spaces\n\nSound optimistic but genuine and avoid exaggerated hype or generic praise\n\nSTRICT FORMATTING RULES\nUse lowercase english letters from a to z and ordinary spaces only\nNever use uppercase letters\nNever use punctuation marks including periods commas colons semicolons apostrophes or quotation marks\nNever use hyphens short dashes long dashes or em dashes\nNever use emojis numbers hashtags or special characters\nCheck the character count and every character before responding\n\nReturn only one final comment"
+    },
+    {
+      "id": "ct-human",
+      "name": "CT Human Reply",
+      "minPlanTier": "free",
+      "description": "Authentic Crypto Twitter community reply, casual thoughtful and human (50 to 80 characters, lowercase a to z only)",
+      "prompt": "Read and understand the full post and respond like a real crypto twitter community member\n\nWrite one casual thoughtful and human sounding reply that directly relates to the post without forced slang or robotic phrases\n\nKeep the comment between 50 and 80 characters including spaces\n\nSTRICT FORMATTING RULES\nUse lowercase english letters from a to z and ordinary spaces only\nNever use uppercase letters\nNever use punctuation marks including periods commas colons semicolons apostrophes or quotation marks\nNever use hyphens short dashes long dashes or em dashes\nNever use emojis numbers hashtags or special characters\nCheck the character count and every character before responding\n\nReturn only one final comment"
+    },
+    {
+      "id": "natural",
+      "name": "Natural & Concise",
+      "minPlanTier": "free",
+      "description": "Concise natural comment on the most interesting point of the post (50 to 80 characters, lowercase a to z only)",
+      "prompt": "Read the full post and identify its most interesting point\n\nWrite one concise natural and relevant comment that sounds like a real person sharing a genuine thought\n\nDo not simply repeat the post or use generic compliments\n\nKeep the comment between 50 and 80 characters including spaces\n\nSTRICT FORMATTING RULES\nUse lowercase english letters from a to z and ordinary spaces only\nNever use uppercase letters\nNever use punctuation marks including periods commas colons semicolons apostrophes or quotation marks\nNever use hyphens short dashes long dashes or em dashes\nNever use emojis numbers hashtags or special characters\nCheck the character count and every character before responding\n\nReturn only one final comment"
+    },
+    {
+      "id": "professional",
+      "name": "Professional",
+      "minPlanTier": "starter",
+      "description": "Credible professional insight based on the actual message of the post (50 to 80 characters, lowercase a to z only)",
+      "prompt": "Read the entire post and write one intelligent professional comment based on its actual message\n\nHighlight a meaningful insight business implication or industry perspective when relevant\n\nKeep the wording credible clear and natural without unnecessary jargon or unsupported claims\n\nKeep the comment between 50 and 80 characters including spaces\n\nSTRICT FORMATTING RULES\nUse lowercase english letters from a to z and ordinary spaces only\nNever use uppercase letters\nNever use punctuation marks including periods commas colons semicolons apostrophes or quotation marks\nNever use hyphens short dashes long dashes or em dashes\nNever use emojis numbers hashtags or special characters\nCheck the character count and every character before responding\n\nReturn only one final comment"
+    },
+    {
+      "id": "question",
+      "name": "Engaging Question",
+      "minPlanTier": "pro",
+      "description": "Curious observation that invites discussion without a direct question (50 to 80 characters, lowercase a to z only)",
+      "prompt": "Read the full post and identify an interesting idea that encourages deeper thought\n\nWrite one engaging observation that creates curiosity and invites discussion without using a direct question\n\nKeep the comment relevant natural and between 50 and 80 characters including spaces\n\nSTRICT FORMATTING RULES\nUse lowercase english letters from a to z and ordinary spaces only\nNever use uppercase letters\nNever use punctuation marks including question marks periods commas colons semicolons apostrophes or quotation marks\nNever use hyphens short dashes long dashes or em dashes\nNever use emojis numbers hashtags or special characters\nCheck the character count and every character before responding\n\nReturn only one final comment"
+    },
+    {
+      "id": "witty",
+      "name": "Witty",
+      "minPlanTier": "growth",
+      "description": "Clever witty comment that fits the context (50 to 80 characters, lowercase a to z only)",
+      "prompt": "Read the entire post and write one clever witty comment that fits the context\n\nUse subtle humor or smart wordplay when appropriate and never force a joke into a serious post\n\nKeep the comment natural relevant and between 50 and 80 characters including spaces\n\nSTRICT FORMATTING RULES\nUse lowercase english letters from a to z and ordinary spaces only\nNever use uppercase letters\nNever use punctuation marks including periods commas colons semicolons apostrophes or quotation marks\nNever use hyphens short dashes long dashes or em dashes\nNever use emojis numbers hashtags or special characters\nCheck the character count and every character before responding\n\nReturn only one final comment"
+    },
+    {
+      "id": "technical",
+      "name": "Technical Alpha",
+      "minPlanTier": "enterprise",
+      "description": "Technically insightful comment grounded in the post (50 to 80 characters, lowercase a to z only)",
+      "prompt": "Read and analyze the entire post before writing one technically insightful comment\n\nFocus on relevant protocol design architecture incentives mechanisms or technical implications only when supported by the post\n\nKeep the comment understandable specific and between 50 and 80 characters including spaces\n\nSTRICT FORMATTING RULES\nUse lowercase english letters from a to z and ordinary spaces only\nNever use uppercase letters\nNever use punctuation marks including periods commas colons semicolons apostrophes or quotation marks\nNever use hyphens short dashes long dashes or em dashes\nNever use emojis numbers hashtags or special characters\nNever invent technical facts\nCheck the character count and every character before responding\n\nReturn only one final comment"
+    },
+    {
+      "id": "mix-comment",
+      "name": "Mix Comment",
+      "minPlanTier": "pro",
+      "description": "Picks the single best fitting style for each post (50 to 80 characters, lowercase a to z only)",
+      "prompt": "Read the entire post and choose exactly one suitable writing style from bullish ct human reply natural and concise professional engaging observation witty or technical alpha\n\nUse only the single style that best fits the post and do not combine multiple styles\n\nWrite one thoughtful natural human sounding comment that responds directly to the post\n\nKeep the comment between 50 and 80 characters including spaces\n\nSTRICT FORMATTING RULES\nUse lowercase english letters from a to z and ordinary spaces only\nNever use uppercase letters\nNever use punctuation marks including periods commas colons semicolons apostrophes or quotation marks\nNever use hyphens short dashes long dashes or em dashes\nNever use emojis numbers hashtags or special characters\nNever invent facts or repeat a previous comment word for word\nCheck the character count and every character before responding\n\nReturn only one final comment"
+    }
+  ],
+  "promptVersion": 2
+}
